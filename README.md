@@ -1,0 +1,1 @@
+My code for the solutions of [Advent of Code](adventofcode.com).
