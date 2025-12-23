@@ -24,9 +24,6 @@ def part1():
         print(e)
     print(zeros)
 
-    
-# 1043
-# 6492
 def part2():
     file_name='input1.txt'
     zeros=0
