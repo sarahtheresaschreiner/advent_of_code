@@ -23,8 +23,8 @@ def part1():
                 invalid_sum+=num
     print(invalid_sum) 
 
-def part2():
-    file_name='example.txt'
+def part2():                                    # only works on example data
+    file_name='input2.txt'
     invalid_sum=0
     ranges=None
     try:
@@ -33,37 +33,37 @@ def part2():
     except Exception as e:
         print(e)
     for r in ranges:
-        start,ende=r.split('-')
-        start = int(start)
-        ende=int(ende)
-        print(start, ende)
-        for i in range(ende-start+1):
-            num=start+i
-            invalid_sum+=inner(num)                              
-    print(invalid_sum)   
+        for n in range(int(r.split('-')[0]), int(r.split('-')[1])+1):
+            if check(n):
+                invalid_sum += n
+    print(invalid_sum) 
 
-def inner(num):
-    string=str(num)
-    l = len(string)
+def check(r):
+    t = teiler(r)
+    r = str(r)
+    for te in t:
+        first = r[:te]          # erste stück
+        fine = True
+        for i in range(te, len(r), te):
+            if first != r[i:(i+te)]:
+                fine = False
+                break
+        if fine:
+            print(r)
+            return True
+    return False                
 
-    for t in getTeiler(l):
-        isL = True
-        for j in range(int(l/t)):
-            k1=j*t
-            k2=(j+1)*t
-            k3=(j+2)*t
-            if int(string[k1:k2]) != int(string[k2:k3]):
-                isL = False
-        if isL==True:
-            return num
-    return 0
+def teiler(r):
+    l = len(str(r))
+    t = [1]
+    for i in range(2, l):
+        if l%i == 0:
+            t.append(i)
+        if i > l/2:
+            break
+    return t
 
-def getTeiler(n):
-    ts=[1]
-    for i in range(1, n):
-        if n%i == 0:
-            ts.append(i)
-    return ts
-    
+  
 if __name__=='__main__':
+    part1()
     part2()
